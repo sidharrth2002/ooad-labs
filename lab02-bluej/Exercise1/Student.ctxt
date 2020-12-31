@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Student
+comment1.params=nm\ gen
+comment1.target=Student(java.lang.String,\ java.lang.String)
+comment2.params=code\ grade
+comment2.target=void\ addSubject(java.lang.String,\ char)
+comment3.params=code
+comment3.target=boolean\ remSubject(java.lang.String)
+comment4.params=
+comment4.target=void\ printTranscript()
+comment5.params=
+comment5.target=java.lang.String\ toString()
+numComments=6

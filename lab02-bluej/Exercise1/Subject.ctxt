@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=Subject
+comment1.params=cd\ res
+comment1.target=Subject(java.lang.String,\ char)
+comment2.params=
+comment2.target=java.lang.String\ getCode()
+comment3.params=
+comment3.target=char\ getResult()
+comment4.params=
+comment4.target=java.lang.String\ toString()
+numComments=5
