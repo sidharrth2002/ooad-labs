@@ -87,6 +87,7 @@ public class WhackAMole extends JFrame {
     private class StartButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             timer.start();
+            ((Button)e.getSource()).setEnabled(false);
         }
     }
 

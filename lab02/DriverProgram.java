@@ -5,13 +5,13 @@ public class DriverProgram {
         Scanner input = new Scanner(System.in);
         String option;
         Student student = new Student("Sidharrth", "male");
-        System.out.println("Choose an option to continue: ");
-        System.out.println("[1] Enter new subject");
-        System.out.println("[2] Remove subject");
-        System.out.println("[3] Show results"); 
-        System.out.println("[4] Quit");
-        option = input.nextLine();
-        while (!option.equals("4")) {
+        do {
+            System.out.println("Choose an option to continue: ");
+            System.out.println("[1] Enter new subject");
+            System.out.println("[2] Remove subject");
+            System.out.println("[3] Show results"); 
+            System.out.println("[4] Quit");
+            option = input.nextLine();
             switch(option) {
                 case "1":
                     System.out.println("Enter subject code: ");
@@ -35,12 +35,6 @@ public class DriverProgram {
                 default: 
                     
             }
-            System.out.println("Choose an option to continue: ");
-            System.out.println("[1] Enter new subject");
-            System.out.println("[2] Remove subject");
-            System.out.println("[3] Show results"); 
-            System.out.println("[4] Quit");            
-            option = input.nextLine();
-        }
+        } while (!option.equals("4"));
     }
 }

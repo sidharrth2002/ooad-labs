@@ -8,6 +8,11 @@ public class Piano implements ChangeListener, KeyListener {
     Synthesizer synth;
     MidiChannel[] mChannels;
 
+    boolean isPlaying;
+    int key;
+    int typeOfSound = 1;
+    int volume = 127;
+
     Piano() {
         try {
             synth = MidiSystem.getSynthesizer();
@@ -18,14 +23,34 @@ public class Piano implements ChangeListener, KeyListener {
         }
 
         JFrame frame = new JFrame("Pea-Air-Know");
+        // frame.setLayout(new FlowLayout());
         JButton[] w = new JButton[7];
         JButton[] b = new JButton[6];
         JLayeredPane panel = new JLayeredPane();
-        frame.add(panel);
+        JPanel menuOptions = new JPanel();
+
+        JLabel label = new JLabel("Adjust Volume");
+        JSlider volSlider = new JSlider(0, 500, 127);
+        volSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                JSlider source = (JSlider)e.getSource();
+                if (!source.getValueIsAdjusting()) {
+                    volume = (int)source.getValue();
+                    System.out.println(volume);
+                }    
+            }
+        });
+        menuOptions.add(label);
+        menuOptions.add(volSlider);
+
+        frame.add(panel, BorderLayout.CENTER);
+        frame.add(menuOptions, BorderLayout.SOUTH);
 
         for (int i = 0; i < 7; i++) {
             w[i] = new JButton();
             w[i].setName("White " + i);
+            w[i].setOpaque(true);
             w[i].setBackground(Color.WHITE);
             w[i].setLocation(i * 70, 0);
             w[i].setSize(70, 300);
@@ -39,6 +64,7 @@ public class Piano implements ChangeListener, KeyListener {
                 continue;
             b[i] = new JButton();
             b[i].setName("Black " + i);
+            b[i].setOpaque(true);
             b[i].setBackground(Color.BLACK);
             b[i].setLocation(35 + i * 70, 0);
             b[i].setSize(70, 150);
@@ -48,64 +74,134 @@ public class Piano implements ChangeListener, KeyListener {
         }
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 320);
+        frame.setSize(500, 400);
+        frame.setFocusable(true);
         frame.setResizable(false);
         frame.setVisible(true);
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        String keyName = ((JButton) e.getSource()).getName();
-
-        int keyNum = 0;
-
-        keyNum = 65 + Integer.parseInt(keyName.substring(6, 7));
-
-        System.out.println(keyNum);
-
-        synth.getChannels()[0].noteOn(keyNum, 127);
+        isPlaying = true;
+        synth.getChannels()[0].noteOn(key, volume);
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        String keyName = ((JButton) e.getSource()).getName();
+        if (isPlaying) {
+            synth.getChannels()[0].noteOff(key);
+            isPlaying = true;
+        }
 
-        int keyNum = 0;
-
-        keyNum = 65 + Integer.parseInt(keyName.substring(6, 7));
-
-        System.out.println(keyNum);
-
-        synth.getChannels()[0].noteOff(keyNum, 127);
     }
+
+    // zxcvbnm
+    // sd ghj
 
     @Override
     public void keyTyped(KeyEvent e) {
-        // TODO Auto-generated method stub
-        System.out.println(e.getKeyCode());
-        System.out.println(e.getKeyChar());
-    }
+        char keyName = e.getKeyChar();
+        System.out.println(keyName + " pressed");
+            isPlaying = true;
+            switch(keyName) {
+                case 'z':
+                    key = 60;
+                    break;
+                case 's':
+                    key = 61;
+                    break;
+                case 'x':
+                    key = 62;
+                    break;
+                case 'd':
+                    key = 63;
+                    break;
+                case 'c':
+                    key = 64;
+                    break;
+                case 'v':
+                    key = 65;
+                    break;
+                case 'g':
+                    key = 66;
+                    break;
+                case 'b':
+                    key = 67;
+                    break;
+                case 'h':
+                    key = 68;
+                    break;
+                case 'n':
+                    key = 69;
+                    break;
+                case 'j':
+                    key = 70;
+                    break;
+                case 'm':
+                    key = 71;
+                    break;
+                default:
+                    key = 0;
+            }
+        }
+
+    // zxcvbnm
+    // sd ghj
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        System.out.println(synth.getChannels());
-        String keyName = ((JButton) e.getSource()).getName();
-
-        int keyNum = 0;
-
-        keyNum = 65 + Integer.parseInt(keyName.substring(6, 7));
-
-        System.out.println(keyNum);
-
-        // synth.getChannels()[1].noteOn(keyNum, 127);
-        // try {
-        //     Thread.sleep(400);
-        // } catch (InterruptedException e1) {
-        //     // TODO Auto-generated catch block
-        //     e1.printStackTrace();
-        // }
-        // synth.getChannels()[1].noteOff(keyNum);
-
+        JButton buttonPressed = (JButton) e.getSource();
+        String keyName = buttonPressed.getName();
+        if (buttonPressed.getModel().isPressed()) {
+            System.out.println(keyName + " pressed");
+            isPlaying = true;
+            switch(keyName) {
+                case "White 0":
+                    key = 60;
+                    break;
+                case "Black 0":
+                    key = 61;
+                    break;
+                case "White 1":
+                    key = 62;
+                    break;
+                case "Black 1":
+                    key = 63;
+                    break;
+                case "White 2":
+                    key = 64;
+                    break;
+                case "White 3":
+                    key = 65;
+                    break;
+                case "Black 2":
+                    key = 66;
+                    break;
+                case "White 4":
+                    key = 67;
+                    break;
+                case "Black 3":
+                    key = 68;
+                    break;
+                case "White 5":
+                    key = 69;
+                    break;
+                case "Black 4":
+                    key = 70;
+                    break;
+                case "White 6":
+                    key = 71;
+                    break;
+            }
+            if (key != 0) {
+                synth.getChannels()[typeOfSound].noteOn(key, volume);
+            }
+        } else {
+            if (isPlaying) {
+                synth.getChannels()[typeOfSound].noteOff(key);
+            }
+            isPlaying = false;
+        }
     }
 
 

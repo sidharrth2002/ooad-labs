@@ -3,9 +3,10 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+import javax.swing.event.MouseInputListener;
 import javax.swing.colorchooser.*;
 
-public class DrawingProgram2 extends JFrame {
+public class DrawingProgram2 extends JFrame implements MouseListener {
     int oldX, oldY, newX, newY;  
     Image image;  
     Graphics2D output;
@@ -113,7 +114,7 @@ public class DrawingProgram2 extends JFrame {
         toolbar.add(eraserButton);
 
         //add to panel
-        this.add(toolbar,BorderLayout.SOUTH);
+        this.add(toolbar,BorderLayout.NORTH);
         this.add(drawingArea, BorderLayout.CENTER);
 
         setSize(800,600);
@@ -121,7 +122,7 @@ public class DrawingProgram2 extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
     
-    public static void main(String[] args){
+    public static void main(String[] args) {
         new DrawingProgram2();
     }
 }
